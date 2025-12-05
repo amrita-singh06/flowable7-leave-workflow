@@ -1,9 +1,9 @@
-#Flowable 7 Leave Workflow (Spring Boot)
+# Flowable 7 Leave Workflow (Spring Boot)
 
 A simple Leave Approval Workflow built using Flowable 7 and Spring Boot.
 The workflow allows an employee to submit a leave request which HR can Approve or Reject, and sends an email notification based on the decision.
 
-##🚀 Features
+## 🚀 Features
 
 BPMN-based Leave Approval Process
 
@@ -15,7 +15,7 @@ REST API endpoints to start and complete tasks
 
 Clean Spring Boot + Flowable architecture
 
-##📂 Key Components
+## 📂 Key Components
 
 leave-approval.bpmn20.xml – Workflow definition
 
