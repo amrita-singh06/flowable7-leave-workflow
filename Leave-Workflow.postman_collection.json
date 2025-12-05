@@ -1,0 +1,166 @@
+{
+	"info": {
+		"_postman_id": "f2600c94-a954-49b0-bbca-9f24e80b804b",
+		"name": "Leave-Workflow",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "13144252"
+	},
+	"item": [
+		{
+			"name": "Start Workflow",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/leave/apply?employee=Amrita&days=5&employeeEmail=amrita.scholl@gmail.com",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"leave",
+						"apply"
+					],
+					"query": [
+						{
+							"key": "employee",
+							"value": "Amrita"
+						},
+						{
+							"key": "days",
+							"value": "5"
+						},
+						{
+							"key": "employeeEmail",
+							"value": "amrita.scholl@gmail.com"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Manager Tasks",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/leave/tasks/manager",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"leave",
+						"tasks",
+						"manager"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Claim",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/leave/manager/claim?taskId=d607e6a7-d131-11f0-905d-b4b5b687eb25&managerUser=manager",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"leave",
+						"manager",
+						"claim"
+					],
+					"query": [
+						{
+							"key": "taskId",
+							"value": "d607e6a7-d131-11f0-905d-b4b5b687eb25"
+						},
+						{
+							"key": "managerUser",
+							"value": "manager"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Approve Leave",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/leave/manager/action?taskId=1d95c639-d132-11f0-98e7-b4b5b687eb25&approved=true&managerUser=manager",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"leave",
+						"manager",
+						"action"
+					],
+					"query": [
+						{
+							"key": "taskId",
+							"value": "1d95c639-d132-11f0-98e7-b4b5b687eb25"
+						},
+						{
+							"key": "approved",
+							"value": "true"
+						},
+						{
+							"key": "managerUser",
+							"value": "manager"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Reject Leave",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/leave/manager/action?taskId=96fc11ab-d10c-11f0-9af0-bab5b687eb25&approved=false&managerUser=manager",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"leave",
+						"manager",
+						"action"
+					],
+					"query": [
+						{
+							"key": "taskId",
+							"value": "96fc11ab-d10c-11f0-9af0-bab5b687eb25"
+						},
+						{
+							"key": "approved",
+							"value": "false"
+						},
+						{
+							"key": "managerUser",
+							"value": "manager"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
