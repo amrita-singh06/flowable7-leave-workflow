@@ -1,0 +1,21 @@
+# Maven target directory
+target/
+
+# IntelliJ IDEA
+.idea/
+*.iml
+*.iws
+
+# Eclipse
+.project
+.classpath
+.settings/
+
+
+# Logs
+*.log
+
+# OS files
+.DS_Store
+Thumbs.db
+src/main/resources/application.properties

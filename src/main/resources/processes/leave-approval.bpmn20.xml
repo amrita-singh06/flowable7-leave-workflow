@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL"
+             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+             xmlns:flowable="http://flowable.org/bpmn"
+             targetNamespace="LeaveApprovalFlow">
+
+    <process id="leaveApproval" name="Leave Approval Process" isExecutable="true">
+
+        <startEvent id="startEvent" name="Start"/>
+
+        <!-- Step 1: Submit delegate (Spring bean) -->
+        <serviceTask id="submitLeave" name="Submit Leave" flowable:delegateExpression="${submitLeaveDelegate}" />
+
+        <!-- Manager user task -->
+        <userTask id="managerApproval" name="Manager Approval" flowable:candidateGroups="manager"/>
+
+        <exclusiveGateway id="decisionGateway" name="Decision"/>
+
+        <!-- HR processing delegate (bean hrProcessingDelegate) -->
+        <serviceTask id="hrProcessing" name="HR Processing" flowable:delegateExpression="${hrProcessingDelegate}" />
+
+        <!-- Approve email delegate -->
+        <serviceTask id="approveEmail" name="Send Approval Email" flowable:delegateExpression="${approveEmailDelegate}" />
+
+        <!-- Rejection notify (console) -->
+        <serviceTask id="notifyRejection" name="Notify Rejection" flowable:delegateExpression="${rejectionDelegate}" />
+
+        <!-- Rejection email -->
+        <serviceTask id="rejectEmail" name="Send Rejection Email" flowable:delegateExpression="${rejectEmailDelegate}" />
+
+        <endEvent id="endEvent" name="End"/>
+
+        <sequenceFlow id="flow1" sourceRef="startEvent" targetRef="submitLeave"/>
+        <sequenceFlow id="flow2" sourceRef="submitLeave" targetRef="managerApproval"/>
+        <sequenceFlow id="flow3" sourceRef="managerApproval" targetRef="decisionGateway"/>
+
+        <!-- Approved path -> hrProcessing -->
+        <sequenceFlow id="approvedFlow" sourceRef="decisionGateway" targetRef="hrProcessing">
+            <conditionExpression xsi:type="tFormalExpression"><![CDATA[${approved == true}]]></conditionExpression>
+        </sequenceFlow>
+
+        <sequenceFlow id="hrToApproveEmail" sourceRef="hrProcessing" targetRef="approveEmail"/>
+        <sequenceFlow id="approveEmailToEnd" sourceRef="approveEmail" targetRef="endEvent"/>
+
+        <!-- Rejected path -> notifyRejection -->
+        <sequenceFlow id="rejectedFlow" sourceRef="decisionGateway" targetRef="notifyRejection">
+            <conditionExpression xsi:type="tFormalExpression"><![CDATA[${approved == false}]]></conditionExpression>
+        </sequenceFlow>
+
+        <sequenceFlow id="notifyToRejectEmail" sourceRef="notifyRejection" targetRef="rejectEmail"/>
+        <sequenceFlow id="rejectEmailToEnd" sourceRef="rejectEmail" targetRef="endEvent"/>
+
+    </process>
+</definitions>
